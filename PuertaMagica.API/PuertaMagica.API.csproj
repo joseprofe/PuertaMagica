@@ -11,6 +11,7 @@
   <ItemGroup>
     <ProjectReference Include="..\PuertaMagica.BL\PuertaMagica.BL.csproj" />
     <ProjectReference Include="..\PuertaMagica.Core\PuertaMagica.Core.csproj" />
+    <ProjectReference Include="..\PuertaMagica.DAL\PuertaMagica.DAL.csproj" />
   </ItemGroup>
 
 </Project>

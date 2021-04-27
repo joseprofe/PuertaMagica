@@ -9,6 +9,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using PuertaMagica.BL.Contracts;
 using PuertaMagica.BL.Implementations;
+using PuertaMagica.DAL;
+using PuertaMagica.DAL.Contracts;
+using PuertaMagica.DAL.Implementations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +40,8 @@ namespace PuertaMagica.API
 
             //Aquí las inyecciones: Interfaz - Clase
             services.AddScoped<ILoginBL, LoginBL>();
+            services.AddScoped<ILoginRepository, LoginRepository>();
+            services.Add(new ServiceDescriptor(typeof(ConcesionarioContext), new ConcesionarioContext(Configuration.GetConnectionString("concesionariodb"))));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
