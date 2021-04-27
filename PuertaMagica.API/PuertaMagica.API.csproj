@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PuertaMagica.BL\PuertaMagica.BL.csproj" />
     <ProjectReference Include="..\PuertaMagica.Core\PuertaMagica.Core.csproj" />
   </ItemGroup>
 

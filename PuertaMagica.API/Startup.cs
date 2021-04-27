@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using PuertaMagica.BL.Contracts;
+using PuertaMagica.BL.Implementations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +34,9 @@ namespace PuertaMagica.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PuertaMagica.API", Version = "v1" });
             });
+
+            //Aquí las inyecciones: Interfaz - Clase
+            services.AddScoped<ILoginBL, LoginBL>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

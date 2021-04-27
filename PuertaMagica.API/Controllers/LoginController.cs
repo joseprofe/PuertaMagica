@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PuertaMagica.BL.Contracts;
+using PuertaMagica.BL.Implementations;
 using PuertaMagica.Core.DTO;
 using System;
 using System.Collections.Generic;
@@ -12,13 +14,17 @@ namespace PuertaMagica.API.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
+        public ILoginBL LoginBL { get; set; }
+
+        public LoginController(ILoginBL loginBL)
+        {
+            this.LoginBL = loginBL;
+        }
+
         [HttpPost]
         public bool Login(LoginDTO loginDTO) 
         {
-            if (loginDTO.Username == "Pepe" && loginDTO.Password == "mola")
-                return true;
-            else 
-                return false;
+            return LoginBL.Login(loginDTO);
         }
     }
 }
