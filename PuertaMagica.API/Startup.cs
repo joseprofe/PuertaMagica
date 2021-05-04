@@ -37,7 +37,12 @@ namespace PuertaMagica.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PuertaMagica.API", Version = "v1" });
             });
-
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
             //Aquí las inyecciones: Interfaz - Clase
             services.AddScoped<ILoginBL, LoginBL>();
             services.AddScoped<ILoginRepository, LoginRepository>();
@@ -53,7 +58,7 @@ namespace PuertaMagica.API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PuertaMagica.API v1"));
             }
-
+            app.UseCors("MyPolicy");
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -64,6 +69,8 @@ namespace PuertaMagica.API
             {
                 endpoints.MapControllers();
             });
+
+
         }
     }
 }
