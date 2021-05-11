@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -9,8 +10,11 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using PuertaMagica.BL.Contracts;
 using PuertaMagica.BL.Implementations;
+using PuertaMagica.Core.Automapper;
+using PuertaMagica.Core.DTO;
 using PuertaMagica.DAL;
 using PuertaMagica.DAL.Contracts;
+using PuertaMagica.DAL.Entities;
 using PuertaMagica.DAL.Implementations;
 using System;
 using System.Collections.Generic;
@@ -46,7 +50,11 @@ namespace PuertaMagica.API
             //Aquí las inyecciones: Interfaz - Clase
             services.AddScoped<ILoginBL, LoginBL>();
             services.AddScoped<ILoginRepository, LoginRepository>();
+            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+            services.AddScoped<IUsuarioBL, UsuarioBL>();
             services.Add(new ServiceDescriptor(typeof(ConcesionarioContext), new ConcesionarioContext(Configuration.GetConnectionString("concesionariodb"))));
+
+            services.AddAutoMapper(cfg => cfg.AddProfile(new AutoMapperProfile()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,8 +65,8 @@ namespace PuertaMagica.API
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PuertaMagica.API v1"));
+                app.UseCors("MyPolicy");
             }
-            app.UseCors("MyPolicy");
             app.UseHttpsRedirection();
 
             app.UseRouting();

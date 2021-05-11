@@ -1,4 +1,5 @@
-﻿using PuertaMagica.BL.Contracts;
+﻿using AutoMapper;
+using PuertaMagica.BL.Contracts;
 using PuertaMagica.Core.DTO;
 using PuertaMagica.DAL.Contracts;
 using PuertaMagica.DAL.Entities;
@@ -13,18 +14,17 @@ namespace PuertaMagica.BL.Implementations
     public class LoginBL : ILoginBL
     {
         public ILoginRepository LoginRepository { get; set; }
-        public LoginBL(ILoginRepository LoginRepository)
+
+        public IMapper mapper { get; set; }
+        public LoginBL(ILoginRepository LoginRepository, IMapper mapper)
         {
             this.LoginRepository = LoginRepository;
+            this.mapper = mapper;
         }
 
         public bool Login(LoginDTO loginDTO)
         {
-            var usuario = new Usuario
-            {
-                Username = loginDTO.Username,
-                Password = loginDTO.Password
-            };
+            var usuario = mapper.Map<LoginDTO, Usuario>(loginDTO);
             return LoginRepository.Login(usuario);
         }
     }

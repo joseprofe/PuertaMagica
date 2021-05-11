@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\PuertaMagica.Core\PuertaMagica.Core.csproj" />
     <ProjectReference Include="..\PuertaMagica.DAL\PuertaMagica.DAL.csproj" />
   </ItemGroup>
